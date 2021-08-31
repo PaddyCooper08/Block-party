@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import response
 from .models import Room
 from .serializers import RoomSerializer, CreateRoomSerializer
 
@@ -33,6 +34,27 @@ class GetRoom(APIView):
             {"Bad Request": "Code paramater not found in request."},
             status=status.HTTP_400_BAD_REQUEST,
         )
+
+
+class JoinRoom(APIView):
+    lookup_url_kwarg = "code"
+
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        code = request.data.get(self.lookup_url_kwarg)
+        if code != None:
+            room_result = Room.objects.filter(code=code)
+            if len(room_result) > 0:
+                room = room_result[0]
+                self.request.session["room_code"] = code
+                return Response(
+                    {
+                        "message": "Room Joined!",
+                    },
+                    status=status.HTTP_200_OK,
+                )
 
 
 class CreateRoomView(APIView):
