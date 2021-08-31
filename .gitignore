@@ -3,10 +3,9 @@ venv/
 node_modules/
 __pycache__/
 music_controller/db.sqlite3
-main.js
 *.tmp
 *.log
 *.pot
 *.pyc
-
-
+music_controller\frontend\static\frontend\main.js.LICENSE.txt
+music_controller/frontend/static/frontend/main.js
