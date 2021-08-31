@@ -1,0 +1,12 @@
+.vscode/
+venv/
+node_modules/
+__pycache__/
+music_controller/db.sqlite3
+main.js
+*.tmp
+*.log
+*.pot
+*.pyc
+
+
