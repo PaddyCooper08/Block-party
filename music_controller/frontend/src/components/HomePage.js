@@ -14,6 +14,19 @@ import {
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
+    this.setState = {
+      roomCode: null,
+    };
+  }
+
+  async componentDidMount() {
+    fetch("/api/user-in-room")
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          roomCode: data.code,
+        });
+      });
   }
 
   renderHomePage() {
@@ -42,9 +55,18 @@ export default class HomePage extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
-            {this.renderHomePage()}
-          </Route>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return this.state.roomCode ? (
+                <Redirect to={`'/room/${this.state.roomCode}`} />
+              ) : (
+                this.renderHomePage()
+              );
+            }}
+          />
+
           <Route path="/join" component={RoomJoinPage} />
           <Route path="/create" component={CreateRoomPage} />
           <Route path="/room/:roomCode" component={Room} />
