@@ -54,7 +54,7 @@ export default class HomePage extends Component {
 
   clearRoomCode() {
     this.setState({
-      roomCOde: null,
+      roomCode: null,
     });
   }
 
@@ -73,7 +73,6 @@ export default class HomePage extends Component {
               );
             }}
           />
-
           <Route path="/join" component={RoomJoinPage} />
           <Route path="/create" component={CreateRoomPage} />
           <Route
