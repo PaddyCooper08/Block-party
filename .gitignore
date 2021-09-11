@@ -9,3 +9,4 @@ music_controller/db.sqlite3
 *.pyc
 music_controller/frontend/static/frontend/main.js
 music_controller/frontend/static/frontend/main.js.LICENSE.txt
+music_controller/db.sqlite3
