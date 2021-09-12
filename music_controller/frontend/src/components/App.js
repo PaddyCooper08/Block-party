@@ -3,15 +3,18 @@ import { render } from "react-dom";
 import HomePage from "./HomePage";
 import RoomJoinPage from "./RoomJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
+import { withRouter, BrowserRouter as Router } from "react-router-dom";
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
       <div className="center">
-        <HomePage />
+        <Router>
+          <HomePage />
+        </Router>
       </div>
     );
   }
@@ -19,3 +22,4 @@ export default class App extends Component {
 
 const appDiv = document.getElementById("app");
 render(<App />, appDiv);
+export default withRouter(app);
