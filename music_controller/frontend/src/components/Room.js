@@ -74,6 +74,7 @@ export default class Room extends Component {
             votesToSkip={this.state.votesToSkip}
             guestCanPause={this.state.guestCanPause}
             roomCode={this.roomCode}
+            updateCallback={this.getRoomDetails}
           />
         </Grid>
         <Grid item xs={12} align="center">
@@ -120,7 +121,7 @@ export default class Room extends Component {
         </Grid>
         <Grid item xs={12} align="center">
           <Typography variant="h6" component="h6">
-            Guest Can Pause: {this.state.guestCanPause.toString()}
+            Guests Can Pause: {this.state.guestCanPause.toString()}
           </Typography>
         </Grid>
         <Grid item xs={12} align="center">
