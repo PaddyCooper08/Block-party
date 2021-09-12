@@ -39,7 +39,7 @@ def spotify_callback(request, format=None):
     error = request.GET.get("error")
 
     response = post(
-        "https//accounts.spotify.com/api/token",
+        "https://accounts.spotify.com/api/token",
         data={
             "grant_type": "authorization_code",
             "code": code,
