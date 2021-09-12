@@ -54,6 +54,8 @@ def spotify_callback(request, format=None):
     if not request.session.exists(request.session.session_key):
         request.session.create()
 
-    update_or_create_user_tokens(request.session.session_key, access_token, token_type, expires_in, refresh_token)
+    update_or_create_user_tokens(
+        request.session.session_key, access_token, token_type, expires_in, refresh_token
+    )
 
-    return redirect('frontend')
+    return redirect("frontend:")
