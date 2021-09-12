@@ -4,7 +4,13 @@ import RoomJoinPage from "./RoomJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
 
 import Room from "./Room";
-import { Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Button,
+  ButtonGroup,
+  Typography,
+  Slide,
+} from "@material-ui/core";
 import {
   BrowserRouter as Router,
   Switch,
