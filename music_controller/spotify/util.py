@@ -10,6 +10,7 @@ BASE_URL = "https://api.spotify.com/v1/me/"
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user=session_id)
     if user_tokens.exists():
+
         return user_tokens[0]
     else:
         return None
@@ -43,16 +44,26 @@ def update_or_create_user_tokens(
 def is_spotify_authenticated(session_id):
     tokens = get_user_tokens(session_id)
     if tokens:
+        print(tokens)
         expiry = tokens.expires_in
+        print(tokens.expires_in)
+        print(timezone.now())
         if expiry <= timezone.now():
+            print("yay")
             refresh_spotify_token(session_id)
+
         return True
 
     return False
 
 
 def refresh_spotify_token(session_id):
+    # x = get_user_tokens(session_id).refresh_token
+    # print("token:")
+    # print(x)
+    # print("end")
     refresh_token = get_user_tokens(session_id).refresh_token
+    # print(refresh_token)
 
     response = post(
         "https://accounts.spotify.com/api/token",
@@ -67,7 +78,14 @@ def refresh_spotify_token(session_id):
     access_token = response.get("access_token")
     token_type = response.get("token_type")
     expires_in = response.get("expires_in")
-    refresh_token = response.get("refresh_token")
+
+    # print(access_token)
+    # print(token_type)
+    # print("break")
+    # print(expires_in)
+    # print("break")
+
+    # print("end")
 
     update_or_create_user_tokens(
         session_id, access_token, token_type, expires_in, refresh_token
