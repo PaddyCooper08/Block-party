@@ -78,7 +78,7 @@ class CurrentSong(APIView):
         room_code = self.request.session.get("room_code")
 
         room = Room.objects.filter(code=room_code)
-        print(room)
+        # print(room)
         if room.exists():
             room = room[0]
             # print(room)
