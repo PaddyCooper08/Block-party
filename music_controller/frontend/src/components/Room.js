@@ -156,26 +156,28 @@ export default class Room extends Component {
       return this.renderSettings();
     }
     return (
-      <Grid container spacing={1}>
-        <Grid item xs={12} align="center">
-          <Typography variant="h4" component="h4">
-            Code: {this.roomCode}
-          </Typography>
-        </Grid>
-        <MusicPlayer {...this.state.song} />
+      <div>
+        <Grid container spacing={1}>
+          <Grid item xs={12} align="center">
+            <Typography variant="h6" component="h6">
+              Code: {this.roomCode}
+            </Typography>
+          </Grid>
+          <MusicPlayer {...this.state.song} />
 
-        <Grid item xs={12} align="center">
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={this.leaveButtonPressed}
-          >
-            Leave room
-          </Button>
-        </Grid>
+          <Grid item xs={12} align="center">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.leaveButtonPressed}
+            >
+              Leave room
+            </Button>
+          </Grid>
 
-        {this.state.isHost ? this.renderSettingsButton() : null}
-      </Grid>
+          {this.state.isHost ? this.renderSettingsButton() : null}
+        </Grid>
+      </div>
     );
   }
 }
