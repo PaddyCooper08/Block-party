@@ -10,6 +10,9 @@ import SkipNextIcon from "@material-ui/icons/SkipNext";
 export default class MusicPlayer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isPremium: false,
+    };
   }
 
   noPause() {
@@ -58,34 +61,36 @@ export default class MusicPlayer extends Component {
   render() {
     const songProgress = (this.props.time / this.props.duration) * 100;
     return (
-      <Card>
-        <Grid container alignItems="center">
-          <Grid item xs={4} align="center">
-            <img src={this.props.image_url} height="100%" width="100%" />
+      <div>
+        <Card>
+          <Grid container alignItems="center">
+            <Grid item xs={4} align="center">
+              <img src={this.props.image_url} height="100%" width="100%" />
+            </Grid>
+            <Grid item xs={8} align="center">
+              <Typography component="h5" variant="h5">
+                {this.props.title}
+              </Typography>
+              <Typography color="textSecondary" variant="subtitle1">
+                {this.props.artist}
+              </Typography>
+              <div>
+                <IconButton
+                  onClick={() => {
+                    this.props.is_playing ? this.pauseSong() : this.playSong();
+                  }}
+                >
+                  {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+                </IconButton>
+                <IconButton>
+                  <SkipNextIcon />
+                </IconButton>
+              </div>
+            </Grid>
           </Grid>
-          <Grid item xs={8} align="center">
-            <Typography component="h5" variant="h5">
-              {this.props.title}
-            </Typography>
-            <Typography color="textSecondary" variant="subtitle1">
-              {this.props.artist}
-            </Typography>
-            <div>
-              <IconButton
-                onClick={() => {
-                  this.props.is_playing ? this.pauseSong() : this.playSong();
-                }}
-              >
-                {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
-              </IconButton>
-              <IconButton>
-                <SkipNextIcon />
-              </IconButton>
-            </div>
-          </Grid>
-        </Grid>
-        <LinearProgress variant="determinate" value={songProgress} />
-      </Card>
+          <LinearProgress variant="determinate" value={songProgress} />
+        </Card>
+      </div>
     );
   }
 }

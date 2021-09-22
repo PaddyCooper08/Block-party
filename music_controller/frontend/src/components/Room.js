@@ -5,9 +5,12 @@ import {
   Typography,
   Avatar,
   IconButton,
+  Collapse,
 } from "@material-ui/core";
 import CreateRoomPage from "./CreateRoomPage";
 import MusicPlayer from "./MusicPlayer";
+import Alert from "@material-ui/lab/Alert";
+import AlertTitle from "@material-ui/lab/AlertTitle";
 
 export default class Room extends Component {
   constructor(props) {
@@ -18,7 +21,16 @@ export default class Room extends Component {
       isHost: false,
       showSettings: false,
       spotifyAuthenticated: false,
-      song: {},
+      song: {
+        title: "No song is Playing",
+        artist: "The no song club",
+        duration: 0,
+        time: 187478,
+        image_url: "https://i.imgur.com/Ymy0orL.jpg",
+
+        is_playing: false,
+      },
+      open: true,
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
@@ -105,7 +117,7 @@ export default class Room extends Component {
       })
       .then((data) => {
         this.setState({ song: data });
-        // console.log(data);
+        console.log(data);
       });
   }
 
@@ -159,6 +171,21 @@ export default class Room extends Component {
     return (
       <div>
         <Grid container spacing={1}>
+          <Grid item xs={12} align="center">
+            <Collapse in={this.state.open}>
+              <Alert
+                severity="info"
+                onClose={() => {
+                  this.setState({ open: false });
+                }}
+              >
+                <AlertTitle>
+                  You need to own spotify premium to use this service.
+                </AlertTitle>
+              </Alert>
+            </Collapse>
+          </Grid>
+
           <Grid item xs={12} align="center">
             <Typography variant="h6" component="h6">
               Code: {this.roomCode}

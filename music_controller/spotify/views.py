@@ -154,14 +154,17 @@ class PlaySong(APIView):
         return Response({}, status=status.HTTP_403_FORBIDDEN)
 
 
-class GetUserDetails(APIView):
-    def get(self, response, format=None):
-        room_code = self.request.session.get("room_code")
-        room = Room.objects.filter(code=room_code)[0]
-        if self.request.session.session_key == room.host:
-            host = room.host
-            response = execute_spotify_api_request(host, "me")
-            print(response)
+# class GetUserDetails(APIView):
+#     def get(self, response, format=None):
+#         room_code = self.request.session.get("room_code")
+#         room = Room.objects.filter(code=room_code)[0]
+#         if self.request.session.session_key == room.host:
+#             host = room.host
+#             response = execute_spotify_api_request(host, "me")
+#             print(response)
+#             if "premium" in response:
+#                 data =
+#                 return Response(data={"message": True}, status=status.HTTP_200_OK)
+#             return Response({}, status=status.HTTP_404_NOT_FOUND)
 
-            return Response(response, status=status.HTTP_200_OK)
-        return Response({}, status=status.HTTP_403_FORBIDDEN)
+#         return Response({}, status=status.HTTP_403_FORBIDDEN)
