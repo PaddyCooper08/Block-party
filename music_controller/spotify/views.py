@@ -10,6 +10,8 @@ from .util import (
     is_spotify_authenticated,
     update_or_create_user_tokens,
     is_spotify_authenticated,
+    play_song,
+    pause_song,
 )
 from api.models import Room
 
@@ -88,7 +90,7 @@ class CurrentSong(APIView):
             )
         host = room.host
         # print(host)
-        endpoint = "player/currently-playing"
+        endpoint = "me/player/currently-playing"
         response = execute_spotify_api_request(host, endpoint)
 
         if "error" in response or "item" not in response:
@@ -130,10 +132,10 @@ class CurrentSong(APIView):
 
 class PauseSong(APIView):
     def put(self, response, format=None):
-        room_code = self.request.session.get('room_code')
+        room_code = self.request.session.get("room_code")
         room = Room.objects.filter(code=room_code)[0]
         if self.request.session.session_key == room.host or room.guest_can_pause:
-            pause_song(room.host)
+            response = pause_song(room.host)
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         return Response({}, status=status.HTTP_403_FORBIDDEN)
@@ -141,10 +143,25 @@ class PauseSong(APIView):
 
 class PlaySong(APIView):
     def put(self, response, format=None):
-        room_code = self.request.session.get('room_code')
+        room_code = self.request.session.get("room_code")
         room = Room.objects.filter(code=room_code)[0]
+
         if self.request.session.session_key == room.host or room.guest_can_pause:
+
             play_song(room.host)
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
+        return Response({}, status=status.HTTP_403_FORBIDDEN)
+
+
+class GetUserDetails(APIView):
+    def get(self, response, format=None):
+        room_code = self.request.session.get("room_code")
+        room = Room.objects.filter(code=room_code)[0]
+        if self.request.session.session_key == room.host:
+            host = room.host
+            response = execute_spotify_api_request(host, "me")
+            print(response)
+
+            return Response(response, status=status.HTTP_200_OK)
         return Response({}, status=status.HTTP_403_FORBIDDEN)

@@ -34,6 +34,7 @@ export default class Room extends Component {
 
   componentDidMount() {
     this.interval = setInterval(this.getCurrentSong, 1000);
+    fetch("/spotify/profile");
   }
 
   componentWillUnmount() {
@@ -104,7 +105,7 @@ export default class Room extends Component {
       })
       .then((data) => {
         this.setState({ song: data });
-        console.log(data);
+        // console.log(data);
       });
   }
 

@@ -5,7 +5,7 @@ from datetime import timedelta
 from requests import post, put, get
 from .credentials import CLIENT_ID, CLIENT_SECRET
 
-BASE_URL = "https://api.spotify.com/v1/me/"
+BASE_URL = "https://api.spotify.com/v1/"
 
 
 def get_user_tokens(session_id):
@@ -116,8 +116,9 @@ def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
 
 
 def play_song(session_id):
-    return execute_spotify_api_request(session_id, "player/play", put_=True)
+
+    return execute_spotify_api_request(session_id, "me/player/play", put_=True)
 
 
 def pause_song(session_id):
-    return execute_spotify_api_request(session_id, "player/pause", put_=True)
+    return execute_spotify_api_request(session_id, "me/player/pause", put_=True)
