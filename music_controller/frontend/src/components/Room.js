@@ -27,7 +27,7 @@ export default class Room extends Component {
         duration: 0,
         time: 187478,
         image_url: "https://i.imgur.com/Ymy0orL.jpg",
-        test: 0,
+        test: 1,
 
         is_playing: false,
       },
